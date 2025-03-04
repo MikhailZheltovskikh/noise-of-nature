@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Manrope';
+    src: url('./fonts/Manrope-Regular.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Manrope', serif;
+}
+
+h1{
+    font-size: 40px;
+    line-height: normal;
+    font-weight: 700;
+    color: #000;
+}
+
+h3{
+    font-size: 16px;
+    line-height: normal;
+    font-weight: 700;
+    color: #000;
+}
+
+
+button{
+    padding: 10px;
+    color: #fff;
+    margin-top: 20px;
+    background: green;
+    border: none;
+    cursor: pointer;
+}
