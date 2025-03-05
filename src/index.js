@@ -48,14 +48,36 @@ function renderAudio() {
     root.append(audio);
 }
 
+function renderInputVolume() {
+    const input = document.createElement('input');
+    input.classList.add('input-volume');
+    input.id = 'volume';
+    input.type = 'range';
+    input.min = 0.0;
+    input.max = 1.0;
+    input.step = 0.01;
+    root.append(input);
+}
+
 renderBg();
 renderTitle();
 renderCards(DATA);
 renderAudio();
+renderInputVolume();
 
 const cards = document.querySelectorAll('.card__item');
 const bg = document.querySelector('.main-bg');
 const audio = document.querySelector('.audio-player');
+
+function volumeControl() {
+    const inputVolume = document.querySelector('#volume');
+
+    inputVolume.style.display = 'block';
+
+    inputVolume.addEventListener('input', () => {
+        audio.volume = Number(inputVolume.value);
+    });
+}
 
 bg.style.background = `url(${cards[0].dataset.image}) center/cover no-repeat`;
 
@@ -82,6 +104,8 @@ let currentIndex = null;
 cards.forEach((item, index) => {
     item.addEventListener('click', () => {
         const isActive = item.classList.contains('card__item--active');
+
+        volumeControl();
 
         if (currentIndex === index) {
             if (isActive) {
