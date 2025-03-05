@@ -6,7 +6,13 @@ import SUMMER_SOUNDS from '../public/sounds/summer.mp3';
 import RAINY_SOUNDS from '../public/sounds/rain.mp3';
 import WINTER_SOUNDS from '../public/sounds/winter.mp3';
 
-export const DATA = [
+interface Data {
+    title: string;
+    bg: string;
+    sound: string;
+}
+
+export const DATA: Data[] = [
     {
         title: 'summer',
         bg: SUMMER_BG,

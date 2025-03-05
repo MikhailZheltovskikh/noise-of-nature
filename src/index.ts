@@ -1,28 +1,34 @@
 import { DATA } from './constants';
 import './index.scss';
 
-const root = document.getElementById('root');
+interface Data {
+    title: string;
+    bg: string;
+    sound: string;
+}
 
-function renderBg() {
-    const bg = document.createElement('div');
+const root: HTMLElement = document.getElementById('root');
+
+function renderBg(): void {
+    const bg: HTMLElement = document.createElement('div');
     bg.classList.add('main-bg');
     root.append(bg);
 }
 
-function renderTitle() {
-    const title = document.createElement('h1');
+function renderTitle(): void {
+    const title: HTMLElement = document.createElement('h1');
     title.classList.add('title');
     title.textContent = 'Weather sounds';
 
     root.append(title);
 }
 
-function renderCards(data) {
-    const inner = document.createElement('div');
+function renderCards(data: Data[]): void {
+    const inner: HTMLElement = document.createElement('div');
     inner.classList.add('cards__inner');
 
     data.forEach((item) => {
-        const card = document.createElement('div');
+        const card: HTMLElement = document.createElement('div');
         card.classList.add('card__item');
         card.dataset.title = item.title;
         card.dataset.image = item.bg;
@@ -35,12 +41,12 @@ function renderCards(data) {
     root.append(inner);
 }
 
-function renderAudio() {
-    const audio = document.createElement('audio');
+function renderAudio(): void {
+    const audio: HTMLAudioElement = document.createElement('audio');
     audio.controls = true;
     audio.classList.add('audio-player');
 
-    const source = document.createElement('source');
+    const source: HTMLSourceElement = document.createElement('source');
     source.type = 'audio/mp3';
     source.src = '';
 
@@ -48,14 +54,14 @@ function renderAudio() {
     root.append(audio);
 }
 
-function renderInputVolume() {
-    const input = document.createElement('input');
+function renderInputVolume(): void {
+    const input: HTMLInputElement = document.createElement('input');
     input.classList.add('input-volume');
     input.id = 'volume';
     input.type = 'range';
-    input.min = 0.0;
-    input.max = 1.0;
-    input.step = 0.01;
+    input.min = '0.0';
+    input.max = '1.0';
+    input.step = '0.01';
     root.append(input);
 }
 
@@ -65,12 +71,12 @@ renderCards(DATA);
 renderAudio();
 renderInputVolume();
 
-const cards = document.querySelectorAll('.card__item');
-const bg = document.querySelector('.main-bg');
-const audio = document.querySelector('.audio-player');
+const cards: NodeListOf<HTMLElement> = document.querySelectorAll('.card__item');
+const bg: HTMLElement = document.querySelector('.main-bg');
+const audio: HTMLAudioElement = document.querySelector('.audio-player');
 
-function volumeControl() {
-    const inputVolume = document.querySelector('#volume');
+function volumeControl(): void {
+    const inputVolume: HTMLInputElement = document.querySelector('#volume');
 
     inputVolume.style.display = 'block';
 
@@ -81,11 +87,11 @@ function volumeControl() {
 
 bg.style.background = `url(${cards[0].dataset.image}) center/cover no-repeat`;
 
-function activeCard(a) {
+function activeCard(a: number): void {
     cards[a].classList.add('card__item--active');
     bg.style.background = `url(${cards[a].dataset.image}) center/cover no-repeat`;
 
-    const source = audio.querySelector('source');
+    const source: HTMLSourceElement = audio.querySelector('source');
     if (source.src !== cards[a].dataset.sound) {
         source.src = cards[a].dataset.sound;
         audio.load();
@@ -93,17 +99,17 @@ function activeCard(a) {
     audio.play();
 }
 
-function removeClassActiveCard() {
+function removeClassActiveCard(): void {
     cards.forEach((item) => {
         item.classList.remove('card__item--active', 'card__item--pause');
     });
 }
 
-let currentIndex = null;
+let currentIndex: number | null = null;
 
 cards.forEach((item, index) => {
     item.addEventListener('click', () => {
-        const isActive = item.classList.contains('card__item--active');
+        const isActive: boolean = item.classList.contains('card__item--active');
 
         volumeControl();
 
